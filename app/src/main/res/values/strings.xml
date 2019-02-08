@@ -1,9 +1,22 @@
 <resources>
-    <string name="app_name">Proyecto_investigacion</string>
+    <string name="app_name">Detector de retinoblastoma</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+
+    <string name="Camara">Camara</string>
+    <string name="Galeria">Galeria</string>
+    <string name="Cargar_imagenes">Cargar imagen:</string>
+    <string name="Opciones">Opciones de imagen:</string>
+    <string name="Compartir">Compartir</string>
+    <string name="Guardar">Guardar</string>
+    <string name="Ajustes">Ajustes</string>
+    <string name="Ayuda">Ayuda</string>
+    <string name="Acerca">Acerca de</string>
+
+    <string name="Deteccion">Detector de retinoblastoma</string>
+
 </resources>
