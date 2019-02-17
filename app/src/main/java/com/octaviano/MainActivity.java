@@ -1,6 +1,8 @@
 package com.octaviano;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -13,11 +15,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ImageTool imgTool;
+    private ImageView image;
+    private Bitmap imageBitmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        imgTool = new ImageTool();
+        imgTool = new ImageTool(MainActivity.this);
+        image = findViewById(R.id.image);
     }
 
 
@@ -91,12 +97,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            imgTool.loadFromCamera();
         } else if (id == R.id.nav_gallery) {
-            imgTool.loadFromGallery(MainActivity.this);
+            imgTool.loadFromGallery();
         }else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
+            imgTool.share(imageBitmap);
 
         } else if (id == R.id.nav_send) {
 
@@ -106,4 +113,20 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            if ( requestCode == ImageTool.REQUEST_CODE_GALLERY){
+
+            } else if (requestCode == ImageTool.REQUEST_CODE_CAMERA){
+                Bundle extras = data.getExtras();
+                imageBitmap = (Bitmap) extras.get("data");
+                image.setImageBitmap(imageBitmap);
+            }
+        }
+    }
+
+
 }
