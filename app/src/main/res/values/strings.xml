@@ -18,5 +18,6 @@
     <string name="Acerca">Acerca de</string>
 
     <string name="Deteccion">Detector de retinoblastoma</string>
+    <string name="seleccionarIMG">Seleccione una fotografia:</string>
 
 </resources>
