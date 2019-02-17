@@ -2,7 +2,9 @@ package com.octaviano;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,6 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -119,6 +124,25 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if ( requestCode == ImageTool.REQUEST_CODE_GALLERY){
+                Uri selectedImageUri = null;
+                Uri selectedImage;
+                String filePath = null;
+                selectedImage = data.getData();
+                String selectedPath=selectedImage.getPath();
+                if (selectedPath != null) {
+                    InputStream imageStream = null;
+                    try {
+                        imageStream = getContentResolver().openInputStream(
+                                selectedImage);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+
+                    // Transformamos la URI de la imagen a inputStream y este a un Bitmap
+                    imageBitmap = BitmapFactory.decodeStream(imageStream);
+                    // Ponemos nuestro bitmap en un ImageView que tengamos en la vista
+                    image.setImageBitmap(imageBitmap);
+                }
 
             } else if (requestCode == ImageTool.REQUEST_CODE_CAMERA){
                 Bundle extras = data.getExtras();
