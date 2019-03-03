@@ -19,7 +19,10 @@
 
     <string name="Deteccion">Detector de retinoblastoma</string>
     <string name="seleccionarIMG">Seleccione una fotografía:</string>
-    <string name="imagnen_guardada">Imagen guadada en galería..</string>
-    <string name="imagnen_no_guardada">Tubimos problemas al guardar la fotografía</string>
+    <string name="imagnen_guardada">Imagen guadada en galería</string>
+    <string name="imagnen_no_guardada">Ocurrió un error al cargar la fotografía</string>
+    <string name="imagen_null">No hay imagen para guardar</string>
+    <string name="imagen_no_cargada">Ocurrió un error al cargar la fotografía</string>
+    <string name="selecciona_una_app">Elige una aplicación:</string>
 
 </resources>

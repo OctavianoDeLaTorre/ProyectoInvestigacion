@@ -2,9 +2,6 @@ package com.octaviano;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -20,10 +17,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.octaviano.compartirIMG.CompartirFotografia;
 import com.octaviano.fotografia.Fotografia;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -111,17 +106,23 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-
-
+            new CompartirFotografia(MainActivity.this).execute(fotografia.getFotografia());
         } else if (id == R.id.nav_save) {
-            if(fotografia.save(imageBitmap))
+            if (imageBitmap != null) {
+                if (fotografia.save(imageBitmap))
+                    Toast.makeText(MainActivity.this,
+                            R.string.imagnen_guardada,
+                            Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(MainActivity.this,
+                            R.string.imagnen_no_guardada,
+                            Toast.LENGTH_SHORT).show();
+            } else {
                 Toast.makeText(MainActivity.this,
-                        R.string.imagnen_guardada,
+                        R.string.imagen_null,
                         Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(MainActivity.this,
-                        R.string.imagnen_no_guardada,
-                        Toast.LENGTH_SHORT).show();
+            }
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -134,23 +135,12 @@ public class MainActivity extends AppCompatActivity
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             if ( requestCode == Fotografia.REQUEST_CODE_GALLERY){
-                Uri selectedImageUri = null;
-                Uri selectedImage;
-                String filePath = null;
-                selectedImage = data.getData();
-                String selectedPath=selectedImage.getPath();
-                if (selectedPath != null) {
-                    InputStream imageStream = null;
-                    try {
-                        imageStream = getContentResolver().openInputStream(
-                                selectedImage);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    // Transformamos la URI de la imagen a inputStream y este a un Bitmap
-                    imageBitmap = BitmapFactory.decodeStream(imageStream);
-                    // Ponemos nuestro bitmap en un ImageView que tengamos en la vista
-                    image.setImageBitmap(imageBitmap);
+                if (fotografia.getBitmat(data)) {
+                    image.setImageBitmap(fotografia.getFotografia());
+                } else {
+                    Toast.makeText(MainActivity.this,
+                            R.string.imagen_no_cargada,
+                            Toast.LENGTH_SHORT).show();
                 }
 
             } else if (requestCode == Fotografia.REQUEST_CODE_CAMERA){
