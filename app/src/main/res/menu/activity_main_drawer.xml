@@ -20,7 +20,7 @@
     <item android:title="@string/Opciones">
         <menu>
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/nav_save"
                 android:icon="@android:drawable/ic_menu_save"
                 android:title="@string/Guardar" />
 

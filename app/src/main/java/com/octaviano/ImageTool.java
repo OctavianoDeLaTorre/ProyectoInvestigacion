@@ -81,8 +81,6 @@ public class ImageTool {
                 activity.startActivity(Intent.createChooser(shareIntent, "Elige una aplicación:"));
 
             }
-
-
             return null;
     }
 

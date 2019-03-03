@@ -18,6 +18,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.octaviano.fotografia.Fotografia;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -25,7 +28,7 @@ import java.io.InputStream;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ImageTool imgTool;
+    private Fotografia fotografia;
     private ImageView image;
     private Bitmap imageBitmap;
 
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        imgTool = new ImageTool(MainActivity.this);
+        fotografia = new Fotografia(MainActivity.this);
         image = findViewById(R.id.image);
     }
 
@@ -102,16 +105,23 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            imgTool.loadFromCamera();
+            fotografia.loadFromCamera();
         } else if (id == R.id.nav_gallery) {
-            imgTool.loadFromGallery();
+            fotografia.loadFromGallery();
         }else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
-            imgTool.share(imageBitmap);
 
-        } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_save) {
+            if(fotografia.save(imageBitmap))
+                Toast.makeText(MainActivity.this,
+                        R.string.imagnen_guardada,
+                        Toast.LENGTH_SHORT).show();
+            else
+                Toast.makeText(MainActivity.this,
+                        R.string.imagnen_no_guardada,
+                        Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -123,7 +133,7 @@ public class MainActivity extends AppCompatActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
-            if ( requestCode == ImageTool.REQUEST_CODE_GALLERY){
+            if ( requestCode == Fotografia.REQUEST_CODE_GALLERY){
                 Uri selectedImageUri = null;
                 Uri selectedImage;
                 String filePath = null;
@@ -137,14 +147,13 @@ public class MainActivity extends AppCompatActivity
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
                     // Transformamos la URI de la imagen a inputStream y este a un Bitmap
                     imageBitmap = BitmapFactory.decodeStream(imageStream);
                     // Ponemos nuestro bitmap en un ImageView que tengamos en la vista
                     image.setImageBitmap(imageBitmap);
                 }
 
-            } else if (requestCode == ImageTool.REQUEST_CODE_CAMERA){
+            } else if (requestCode == Fotografia.REQUEST_CODE_CAMERA){
                 Bundle extras = data.getExtras();
                 imageBitmap = (Bitmap) extras.get("data");
                 image.setImageBitmap(imageBitmap);
