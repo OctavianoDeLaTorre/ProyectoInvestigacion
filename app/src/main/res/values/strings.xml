@@ -25,4 +25,9 @@
     <string name="imagen_no_cargada">Ocurrió un error al cargar la fotografía</string>
     <string name="selecciona_una_app">Elige una aplicación:</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="que_es_el_retinoblastoma">¿Que es el Retinoblastoma?</string>
+    <string name="el_retinoblastoma_es">El retinoblastoma es un tumor canceroso que se desarrolla en la retina causado por una mutación en la proteína Rb, codificada por un gen supresor tumoral denominado RB1</string>
+
 </resources>
