@@ -29,5 +29,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="que_es_el_retinoblastoma">¿Que es el Retinoblastoma?</string>
     <string name="el_retinoblastoma_es">El retinoblastoma es un tumor canceroso que se desarrolla en la retina causado por una mutación en la proteína Rb, codificada por un gen supresor tumoral denominado RB1</string>
+    <string name="como_puede_detectarse">¿Como puede detectarse?</string>
+    <string name="puede_notarse">Puede notarse si la pupila se ve blanca cuando se ilumina el ojo, por ejemplo con el flash de una fotografía. Este sintoma es conocido como leucocoria.</string>
+    <string name="tratamientos">Tratamientos</string>
+    <string name="los_tratamientos">Los tratamientos incluyen quimioterapia, radioterapia y terapia de láser.</string>
+    <string name="que_es_la_leucocoria">¿Que es la leucocoria?</string>
+    <string name="la_leucocoria">La leucocoria se refiere a un signo clínico caracterizado por la aparición de un reflejo o mancha blanca en la región pupilar. También se le llama pupila blanca.</string>
+    <string name="ojo_con_leucocoria">Ejemplo de ojo con leucocoria</string>
 
 </resources>

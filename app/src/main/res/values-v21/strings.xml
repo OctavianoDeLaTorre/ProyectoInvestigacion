@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="que_es_el_retinoblastoma">¿Que es el Retinoblastoma?</string>
+    <string name="puede_notarse">Puede notarse si la pupila se ve blanca cuando se ilumina el ojo, por ejemplo con el flash de una fotografía. Este sintoma es conocido como leucocoria.</string>
+    <string name="tratamientos">Tratamientos</string>
+    <string name="que_es_la_leucocoria">¿Que es la leucocoria?</string>
+    <string name="la_leucocoria">La leucocoria se refiere a un signo clínico caracterizado por la aparición de un reflejo o mancha blanca en la región pupilar. También se le llama pupila blanca.</string>
 </resources>
