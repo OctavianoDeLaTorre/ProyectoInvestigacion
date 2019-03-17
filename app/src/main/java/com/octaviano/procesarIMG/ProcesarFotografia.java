@@ -1,4 +1,4 @@
-package com.octaviano.procesar;
+package com.octaviano.procesarIMG;
 
 import android.graphics.Bitmap;
 

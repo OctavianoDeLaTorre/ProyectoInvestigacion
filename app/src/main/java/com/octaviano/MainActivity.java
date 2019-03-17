@@ -17,9 +17,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.octaviano.analizarColor.AnalizarColor;
 import com.octaviano.compartirIMG.CompartirFotografia;
 import com.octaviano.fotografia.Fotografia;
-import com.octaviano.procesar.ProcesarFotografia;
+import com.octaviano.procesarIMG.ProcesarFotografia;
 
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Mat;
@@ -146,10 +147,12 @@ public class MainActivity extends AppCompatActivity
                 if (fotografia.getBitmat(data)) {
                     ProcesarFotografia pF = new ProcesarFotografia();
                     Mat mat = pF.toMat(fotografia.getFotografia());
-                    mat = pF.getGrayScale(mat);
+                    //mat = pF.getGrayScale(mat);
                     if (mat != null){
                         //pF.toBitmap(mat,fotografia.getFotografia())
-                        image.setImageBitmap(pF.toBitmap(mat,fotografia.getFotografia()));
+                        AnalizarColor aColor = new AnalizarColor();
+                        Mat res = aColor.analizarColor(mat,AnalizarColor.LEUCOCORIA_LEVEL_LOW);
+                        image.setImageBitmap(pF.toBitmap(res,fotografia.getFotografia()));
                     }
 
                 } else {
