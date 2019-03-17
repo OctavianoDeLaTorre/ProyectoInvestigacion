@@ -19,6 +19,10 @@ import android.widget.Toast;
 
 import com.octaviano.compartirIMG.CompartirFotografia;
 import com.octaviano.fotografia.Fotografia;
+import com.octaviano.procesar.ProcesarFotografia;
+
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Mat;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -26,6 +30,10 @@ public class MainActivity extends AppCompatActivity
     private Fotografia fotografia;
     private ImageView image;
     private Bitmap imageBitmap;
+
+    private static boolean initOpenCV = false;
+
+    static { initOpenCV = OpenCVLoader.initDebug(); }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,7 +144,14 @@ public class MainActivity extends AppCompatActivity
         if(resultCode == RESULT_OK){
             if ( requestCode == Fotografia.REQUEST_CODE_GALLERY){
                 if (fotografia.getBitmat(data)) {
-                    image.setImageBitmap(fotografia.getFotografia());
+                    ProcesarFotografia pF = new ProcesarFotografia();
+                    Mat mat = pF.toMat(fotografia.getFotografia());
+                    mat = pF.getGrayScale(mat);
+                    if (mat != null){
+                        //pF.toBitmap(mat,fotografia.getFotografia())
+                        image.setImageBitmap(pF.toBitmap(mat,fotografia.getFotografia()));
+                    }
+
                 } else {
                     Toast.makeText(MainActivity.this,
                             R.string.imagen_no_cargada,
