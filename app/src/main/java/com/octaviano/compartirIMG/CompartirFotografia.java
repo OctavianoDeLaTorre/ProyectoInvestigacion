@@ -15,16 +15,25 @@ import java.io.IOException;
 
 
 public class CompartirFotografia extends AsyncTask<Bitmap, Void, Void> {
-
     private Context mContext;
 
+    /**
+     * Constructor
+     * @param mContext
+     */
     public CompartirFotografia(Context mContext) {
         this.mContext = mContext;
     }
 
+    /**
+     * Inicia un activity en segundo plano para
+     * compartir un imagen por las redes sociales
+     * disponinbles en el sistema.
+     * @param params Imagen a compartir
+     * @return Void
+     */
     @Override
     protected Void doInBackground(Bitmap... params) {
-
         try {
             File cachePath = new File(mContext.getCacheDir(), "imagenes"); //path cache.
             cachePath.mkdirs(); // Crea directorio si no existe.
@@ -35,7 +44,6 @@ public class CompartirFotografia extends AsyncTask<Bitmap, Void, Void> {
             e.printStackTrace();
         }
 
-
         File imagePath = new File(mContext.getCacheDir(), "imagenes"); //obtiene directorio.
         File newFile = new File(imagePath, "imagen.jpg"); //obtiene imagen.
         String PACKAGE_NAME = mContext.getApplicationContext().getPackageName() + ".providers.FileProvider";
@@ -43,12 +51,11 @@ public class CompartirFotografia extends AsyncTask<Bitmap, Void, Void> {
         if (contentUri != null) {
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
+            shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             shareIntent.setDataAndType(contentUri, mContext.getContentResolver().getType(contentUri));
             shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
             mContext.startActivity(Intent.createChooser(shareIntent, mContext.getString(R.string.selecciona_una_app)));
         }
-
         return null;
     }
 }
