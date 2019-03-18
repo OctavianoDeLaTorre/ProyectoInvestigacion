@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     private Fotografia fotografia;
     private ImageView image;
     private Bitmap imageBitmap;
+
 
     private static boolean initOpenCV = false;
 
@@ -132,6 +135,8 @@ public class MainActivity extends AppCompatActivity
                         Toast.LENGTH_SHORT).show();
             }
 
+        } else if(id == R.id.nav_ayuda){
+            startActivity(new Intent(MainActivity.this,InformacionRb.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -145,13 +150,14 @@ public class MainActivity extends AppCompatActivity
         if(resultCode == RESULT_OK){
             if ( requestCode == Fotografia.REQUEST_CODE_GALLERY){
                 if (fotografia.getBitmat(data)) {
+                    imageBitmap = fotografia.getFotografia();
                     ProcesarFotografia pF = new ProcesarFotografia();
                     Mat mat = pF.toMat(fotografia.getFotografia());
                     //mat = pF.getGrayScale(mat);
                     if (mat != null){
                         //pF.toBitmap(mat,fotografia.getFotografia())
                         AnalizarColor aColor = new AnalizarColor();
-                        Mat res = aColor.analizarColor(mat,AnalizarColor.LEUCOCORIA_LEVEL_LOW);
+                        Mat res = aColor.analizarColor(mat,AnalizarColor.LEUKOCORIA_LEVEL_LOW);
                         image.setImageBitmap(pF.toBitmap(res,fotografia.getFotografia()));
                     }
 
